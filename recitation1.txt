@@ -1,0 +1,12 @@
+1. Write pseudo-code or a Java program to print all the elements in a linked 
+list, from head to end, given the head node.
+
+2. Given the head node of a linked list and a number 'i', give an algorithm to
+find the ith element from the head of the linked list.
+
+3. Given the head node of a linked list and a value v, give an algorithm to find
+the first occurence of v in the linked list and give its 0-based index.
+eg: Consider the linked list 5 -> 1 -> 4 -> 3 -> 2 -> 1. The first occurance of
+1 is at position 1.
+
+
