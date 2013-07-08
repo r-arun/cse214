@@ -2,6 +2,22 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CSE214 Recitation 1</title>
+<style type="text/css">
+pre {
+background-color: #dddddd;
+color: blue;
+font-family: "courier";
+left: 100;
+}
+.question{
+background-color: #ffffff;
+color: #33aa11;
+font-family: "georgia";
+}
+body{
+font-family: "times";
+}
+</style>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
@@ -54,10 +70,12 @@ The simplest way to determine the running time, is to write a computer program r
 <p>But on different hardware, the same algorithms can have different running times.</p>
 <p>We can compute the running time based on the number of instructions executed with respect to the size of the input. Consider the algorithm for finding the sum of first $n$ natural numbers.
 <pre>
+
 sum = 0
 for i = 1 to n
 	sum = sum + i
 print sum
+
 </pre>
 Assume that the expression $sum = sum + i$ takes unit time to complete. How long
 does the program for different values of $n$?
@@ -80,16 +98,18 @@ C = A + B;</p>
 <!-- TODO Introduce All ordered pairs or cartesian product -->
 <h4>All ordered pairs</h4>
 <p>We look at another example. Given two arrays each of size $n$, find all ordered pairs of number.<br/>
-For $A = {1, 2, 3}, B = {4, 5}$. The order pairs are ${(1,4), (1,5), (2, 4), (2, 5), (3, 4), (3,5)}$. The algorithm
+For $A = \{1, 2, 3\}, B = \{4, 5\}$. The order pairs are $\{(1,4), (1,5), (2, 4), (2, 5), (3, 4), (3,5)\}$. The algorithm
 is quite simple: Combine each element in $A$ with all elements of $B$ one at a time.</p>
 <p>This is operation is also known as the cartesian product of $A$ and $B$. We used this example only to analyse
 nested loops!</p>
 <pre>
+
 for(i = 0; i &lt; n; ++i){
 	for(j = 0; j &lt; n; ++j){
 		print (A[i], B[j])
 	}
 }
+
 </pre>
 <p> The outer loop executes $n$ times. Each time outer loop is executed, the inner loop (with $j$) executes $n$ times.
 So the print statement is executed $n \times n$ times.</p>
@@ -99,6 +119,7 @@ take time equal to the number of times the loop is repeated. To compute the runn
 (treated a nested loop as a single loop) and compute the running time for each iteration to get the running for
 a single loop. Then, combine the times for each loop one by one.</p>
 <pre>
+
 for (x=1; x&lt;=n; x++)
 	c = a + b;
 for (x=1; x&lt;=n; x++)
@@ -106,6 +127,7 @@ for (x=1; x&lt;=n; x++)
 	c = a + b;
 	d = e + f;
 }
+
 </pre>
 <p> The first loop has a running time of $n$. The second has $2$ instructions per iteration and the loop repeats
 $n$ times.  In all, the second loop executes $2n$ instructions. Thus the total running time is $2n + n = 3n$.</p>
@@ -116,11 +138,7 @@ operations as a function of $n$?</p>
 <p>$O(n)$ &#8211; a function of $n$</p>
 <p>$O(n^2)$ &#8211; a function of $n^2$</p>
 
-</font></blockquote><font color="#000000" face="Arial" size="5">
-</font><font color="#000000" face="Arial" size="6">
 <p align="CENTER">Big O Notation (cont&#8217;d)</p>
-</font><blockquote><font color="#000000" face="Arial" size="6">
-</font><font color="#000000" face="Arial" size="4">
 <p>Let $f(n)$ and $g(n)$ be functions mapping nonnegative integers to real numbers.</p>
 <p>We say that $f(n)$ is $O \left(g \left(n \right) \right)$ if there is a real constant $c > 0$ and an
 integer constant $n_0 >  1$ such that $f(n) \lt cg(n)$
@@ -129,38 +147,52 @@ for every integer n <u>&gt;</u> n<sub>0</sub>.</p>
 </p>
 <p>The last algorithm which had a running time of $3n$ is $O(n)$, if we choose a constant $c = 3.1$ (We can choose the constant!) or higher. Thus the running time is said to be $O(n)$ and linear in $n$.
 <h4>Big O Examples</h4>
-<pre>for (x=1; x&lt;=n; x++)
+<pre>
+
+for (x=1; x&lt;=n; x++)
 	c = a + b;
+
 </pre>
 <p>The running time, $f(n) = O(n)$</p>
-<pre>for (x=1; x&lt;=n; x++)
+<pre>
+
+for (x=1; x&lt;=n; x++)
 {
 	c = a + b;
 	d = e + f;
 }
+
 </pre>
 <p>The running time, $f(n) = O(2n) = O(n)$</p>
 <h4>Big O Examples</h4>
 <pre>
+
 for (x=1; x&lt;=n; x++){
 	c = a + b;
 }
 c = c + d;
+
 </pre>
 <p>The running time, $f(n) = O(n + 1) = O(n)$</p>
 <pre>
+
 for (x=1; x&lt;=n; x=x*2)
 	c = a + b;
+
 </pre>
 <p>$O(\log_2 {n}) = O(\log n)$</p>
-<pre>for (x=1; x&lt;=n; x++) {
+<pre>
+
+for (x=1; x&lt;=n; x++) {
 	d = e + f;
 	for (y=n; y&gt;0; y--) {
 		c = a + b;
 		c = c * 2;
 		d = c + d;
 	}
-}</pre>
+}
+
+</pre>
 <p>This has nested loops. There is a simple technique for analysiing nested for loops. Consdier the inner most loop as a
 single instruction, but with its original running time, ($3n$ in this case). Now compute the runnig time within the outer loop. It is $3n + 1$ and it is repeated $n$ times and hence $f(n) = 3n^2 +n = O(n^2).$ </p>
 <p> There is definitely a constant $c > 0$ such that after, some size of input $n_0$,<br/>
@@ -174,38 +206,79 @@ For example the constant can be $c = 3.3$ for $n_0 = 5$.
 This is because, there always exists a constant $c > 0$ for which $f(n) < c \times f_{fast}(n)$  </p>
 
 
-<h3>Worst-, Average-, Best-Case</h3>
-</font><blockquote><font color="#000000" face="Arial" size="6">
-</font><font color="#000000" face="Arial" size="5">
+<h4>Worst-Case Running Time</h4>
+Consider the algorithm for finding the number $42$ in an array of integers of size $n$.
+<pre>
+
+find(arr[]){
+	arr is the array of integers
+	for(i = 0 to n){
+		if(arr[i] == 42)
+			return true;
+	}
+	return false;
+}
+
+</pre>
+<p>We can say that running time corresponds to number of array elements compared.</p>
+<p>
+Now consider the array $A = \{21, 31, 42, 52, 90, 85, 17\}$. $42$ is the $3^{rd}$ element in $A$ and so the
+algorithm makes $3$ comparisons. So the running time $f(n) = 3$. If the elements of $A$ are rearranged, what is the
+highest value $f(n)$ can take? If we move $42$ to the end of the array, we have to compare all elements of $A$, and <br/>
+$f(n) = n = 7$.
+</p>
+<p class = "question">So if element $42$ is present only at the end of an array of size $n$, it forces the algorithm to perform all $n$
+comparisons. There is also another case in which the number of comparisons is highest. What is that?
+</p>
+<p>
+Our algorithm applies in general to any array. The running time depends on the first position where $42$ is present.
+In the <em>worst case</em>, $42$ is either not present in the array or present only at the last position and hence
+the <em>worst case</em>running time is $f(n) = O(n).
+	</p>
+<p class = "question">How should the array be for $f(n)$ to be minimum?</p>
+<p>When we talk about the running time of an algorithm, we always talk about the worst case running time.</p>
+<p>We also consider at times, the average case running time. Here if the $42$ is present right at the middle of the
+array, the running time is $f(n) = O(\frac{n}{2})$ and this is said to be the <em>average case running time</em>.
 <p>Many algorithms give their <u>worst-case</u> performance in terms of big-O.</p>
 <p>Other measures include <u>average-case</u> or <u>best-case</u> analysis.</p>
 <p>Example: Sequential Search on n elements</p>
-</font><blockquote><font color="#000000" face="Arial" size="5">
-</font><font color="#000000" face="Arial" size="4">
-<p>Worst Case: O(n)</p>
-<p>Average Case: O(n/2) = O(n)</p>
-<p>Best Case: O(1)</p>
-</font></blockquote><font color="#000000" face="Arial" size="4">
-</font></blockquote><font color="#000000" face="Arial" size="4">
-</font><font color="#000000" face="Arial" size="6">
+<p>Worst Case: $O(n)$</p>
+<p>Average Case: $O(\frac{n}{2}) = O(n)$</p>
+<p>Best Case: $O(1)$</p>
+<p class="question">
+You are given an array of $n$ numbers. The array has both positive and negative numbers. Your algorithm has to return
+the index of the first negative number. What is the arrangement of the array that will cause the worst running time?
+What is the average case and its running time?
+</p>
+<h4>Growth of Functions</h4>
+<center>
+	<img src="img/n.JPG" width="50%" height="50%" align="center"></img><br/><br/>
+	Graph of $f(n) = O(n)$<br/><br/>
+</center>
+
+<center>
+	<img src="img/n_square.JPG" width="50%" height="50%" align="center"></img><br/><br/>
+	Graph of $f(n) = O(n^2)$<br/><br/>
+</center>
+
+<center>
+	<img src="img/logn.JPG" width="50%" height="50%" align="center"></img><br/><br/>
+	Graph of $f(n) = O(\log n)$<br/><br/>
+</center>
+
+<center>
+	<img src="img/powerof2.jpg" width="100%" height="100%" align="center"></img><br/><br/>
+	Graph of $f(n) = O(2^n), g(n) = O(n^4)$<br/><br/>
+</center>
 <p align="CENTER">One more example</p>
-</font><blockquote><font color="#000000" face="Arial" size="6">
-</font><font color="#000000" face="Arial" size="4">
 <p>Consider an algorithm that processes n data items in one minute. How long
 will it take to process 32 times as many items on the same computer using the
 same algorithm?</p>
 <pre>Worst Case Complexity APPROX TIME</pre>
-</font><blockquote><font color="#000000" face="Arial" size="4">
-</font><font color="#000000" face="Arial">
 <pre>O(n)                   32 min</pre>
 <pre>O(n<sup>2</sup>)                  ~17 hr</pre>
 <pre>O(2<sup>n</sup>)                  2^31n minutes = YOU&#8217;RE DEAD</pre>
-</font></blockquote><font color="#000000" face="Arial">
-</font></blockquote><font color="#000000" face="Arial">
-</font><font color="#000000" face="Arial" size="6">
 <p align="CENTER">Another view</p>
-</font><blockquote><font color="#000000" face="Arial" size="6">
-</font><font color="#000000" face="Arial" size="5">
 <p>What is the maximum number of inputs that can be processed by an algorithm in
 one hour if one operation takes 1 microsecond?</p>
 <pre>Number of Ops              Max. Problem Size</pre>
